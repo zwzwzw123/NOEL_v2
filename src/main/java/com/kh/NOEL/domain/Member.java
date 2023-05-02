@@ -1,5 +1,6 @@
 package com.kh.NOEL.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,6 +22,7 @@ public class Member {
     @Column(name = "user_id", unique = true, nullable = false)
     private String userId;
 
+    @JsonIgnore
     @Column(name = "user_pw", nullable = false)
     private String userPw;
 
@@ -30,8 +32,8 @@ public class Member {
     @Column(name = "user_tel", nullable = false)
     private String userTel;
 
-    @Column(name = "created_at")
-    @CreatedDate
+    @Column(name = "created_at", unique = false, nullable = true)
+    @CreationTimestamp
     private Date createdAt;
 
     @Enumerated(EnumType.STRING)
