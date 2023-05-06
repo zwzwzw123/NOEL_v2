@@ -2,6 +2,7 @@ package com.kh.NOEL.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Marketer {
     @Column(name = "marketer_email")
     private String marketerEmail;
     @Column(name = "marketer_createdat")
-    @CreatedDate
+    @CreationTimestamp
     private Date marketerCreatedat;
     @Enumerated(EnumType.STRING)
     private MarketerAuth marketerAuth;

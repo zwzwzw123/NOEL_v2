@@ -27,7 +27,7 @@ public class MemberServiceTest {
         memberDto.setUserName("testName");
         memberDto.setUserPw("testPw");
         memberDto.setUserTel("testTel");
-        MemberDto memberDto1 = memberService.join(memberDto);
+        MemberDto memberDto1 = memberService.joinMemeber(memberDto);
 
         assertEquals("testId",memberDto1.getUserId());
         assertEquals("testName",memberDto1.getUserName());

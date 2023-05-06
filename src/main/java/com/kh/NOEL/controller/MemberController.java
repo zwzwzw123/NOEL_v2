@@ -14,9 +14,9 @@ public class MemberController {
     private MemberService memberService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/join")
-    public Response<?> join(@RequestBody MemberDto memberDto){
-        MemberDto saveMember = memberService.join(memberDto);
+    @PostMapping(value = "/join/member")
+    public Response<?> joinMember(@RequestBody MemberDto memberDto){
+        MemberDto saveMember = memberService.joinMemeber(memberDto);
         return new Response<>("true", "회원가입 성공",saveMember);
     }
 
