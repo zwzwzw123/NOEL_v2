@@ -35,8 +35,11 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 
-	//session관련
-	//implementation 'org.springframework.session:spring-session-core'
+	//session 관련
+	implementation 'org.springframework.session:spring-session-core'
+
+	//spring security 관련
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
 
 }
 

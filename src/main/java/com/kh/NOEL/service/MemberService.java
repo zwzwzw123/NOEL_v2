@@ -7,7 +7,6 @@ import com.kh.NOEL.mapper.MemberMapper;
 import com.kh.NOEL.repository.MemberRepository;
 import org.apache.tomcat.util.buf.UEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -29,8 +28,18 @@ public class MemberService {
         return MemberMapper.convertToDto(member);
     }
 
-
     public boolean checkMemberId(String userId) {
         return memberRepository.existsByUserId(userId);
+    }
+
+    public MemberDto loginMember(String userId, String userPw) {
+        Optional<Member> res =memberRepository.findByUserIdAndUserPw(userId, userPw);
+        if(res.isPresent()){
+            MemberDto memberDto = MemberMapper.convertToDto(res.get());
+            return memberDto;
+        }else {
+            throw new EntityNotFoundException(String.format("아이디 및 비밀번호가 일치하지 않습니다."));
+        }
+
     }
 }

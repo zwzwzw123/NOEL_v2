@@ -8,6 +8,9 @@ import com.kh.NOEL.repository.MarketerRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
+
 @Service
 public class MarketerService {
     @Autowired
@@ -27,5 +30,15 @@ public class MarketerService {
 
     public boolean checkMarketerEmail(String marketerEmail) {
         return marketerRespository.existsByMarketerEmail(marketerEmail);
+    }
+
+    public MarketerDto loginMarketer(String marketerId, String marketerPw) {
+        Optional<Marketer> res = marketerRespository.findByMarketerIdAndMarketerPw(marketerId, marketerPw);
+        if(res.isPresent()){
+            MarketerDto marketerDto = MarketerMapper.converToDto(res.get());
+            return marketerDto;
+        }else {
+            throw new EntityNotFoundException(String.format("아이디 및 비밀번호가 일치하지 않습니다."));
+        }
     }
 }
