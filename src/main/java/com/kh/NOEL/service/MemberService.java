@@ -7,7 +7,12 @@ import com.kh.NOEL.mapper.MemberMapper;
 import com.kh.NOEL.repository.MemberRepository;
 import org.apache.tomcat.util.buf.UEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -15,14 +20,17 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
-
-    public MemberDto joinMemeber(MemberDto memberDto){
+    //일반 회원 가입
+    public MemberDto joinMember(MemberDto memberDto) {
         Member member = MemberMapper.convertToModel(memberDto);
         String rawPW = memberDto.getUserPw();
-        //String encPW =
         member.setUserLevel(MemberLevel.USER);
         this.memberRepository.save(member);
         return MemberMapper.convertToDto(member);
     }
 
+
+    public boolean checkMemberId(String userId) {
+        return memberRepository.existsByUserId(userId);
+    }
 }

@@ -19,4 +19,13 @@ public class MarketerService {
         this.marketerRespository.save(marketer);
         return MarketerMapper.converToDto(marketer);
     }
+
+    public boolean checkMarketerId(String marketerId) {
+         boolean check = marketerRespository.existsByMarketerId(marketerId);
+        return check;
+    }
+
+    public boolean checkMarketerEmail(String marketerEmail) {
+        return marketerRespository.existsByMarketerEmail(marketerEmail);
+    }
 }

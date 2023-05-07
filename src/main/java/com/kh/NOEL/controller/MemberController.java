@@ -16,8 +16,15 @@ public class MemberController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/join/member")
     public Response<?> joinMember(@RequestBody MemberDto memberDto){
-        MemberDto saveMember = memberService.joinMemeber(memberDto);
+        MemberDto saveMember = memberService.joinMember(memberDto);
         return new Response<>("true", "회원가입 성공",saveMember);
     }
+
+    //아이디 유효성 검사
+    @GetMapping("/join/member/{userId}/checkId")
+    public ResponseEntity<Boolean> checkMemberId(@PathVariable String userId){
+        return ResponseEntity.ok(memberService.checkMemberId(userId));
+    }
+
 
 }
