@@ -12,33 +12,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/marketer")
 public class MarketerController {
 
     @Autowired
     private MarketerService marketerService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/join/marketer")
+    @PostMapping(value = "/join")
     public Response<?> joinMarketer(@RequestBody MarketerDto marketerDto){
         MarketerDto saveMarketer = marketerService.joinMarketer(marketerDto);
         return new Response<>("true","판매자 회원가입 성공",saveMarketer);
     }
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping(value = "/join/marketer/{marketerId}/checkId")
+    @GetMapping(value = "/join/checkId/{marketerId}")
     public Response<?> checkMarketerId(@PathVariable String marketerId){
         boolean check = marketerService.checkMarketerId(marketerId);
         return new Response<>("true","판매자 아이디 중복 확인",check);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping(value="/join/marketer/{marketerEmail}/checkEmail")
+    @GetMapping(value="/join/checkEmail/{marketerEmail}")
     public Response<?> checkMarketerEmail(@PathVariable String marketerEmail){
         boolean check = marketerService.checkMarketerEmail(marketerEmail);
         return new Response<>("true","판매자 이메일 중복 확인",check);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/login/marketer")
+    @PostMapping("/login")
     public Response<?> loginMarketer(@RequestBody MarketerDto marketerDto){
         MarketerDto pricipal = marketerService.loginMarketer(marketerDto.getMarketerId(), marketerDto.getMarketerPw());
         return new Response<>("true","판매자 로그인 성공",pricipal.getMarketerId());

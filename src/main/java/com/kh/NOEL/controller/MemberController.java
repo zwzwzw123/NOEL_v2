@@ -13,26 +13,27 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/member")
 public class MemberController {
     @Autowired
     private MemberService memberService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/join/member")
+    @PostMapping(value = "/join")
     public Response<?> joinMember(@RequestBody MemberDto memberDto){
         MemberDto saveMember = memberService.joinMember(memberDto);
         return new Response<>("true", "회원가입 성공",saveMember);
     }
 
     //아이디 유효성 검사
-    @GetMapping("/join/member/{userId}/checkId")
+    @GetMapping("/join/checkId/{userId}")
     public Response<?> checkMemberId(@PathVariable String userId){
         boolean check = memberService.checkMemberId(userId);
         return new Response<>("true", "일반 회원 아이디 중복 확인",check);
     }
 
     //로그인
-    @PostMapping("/login/member")
+    @PostMapping("/login")
     public Response<?> loginMember(@RequestBody MemberDto memberDto,HttpSession session){
        MemberDto principal = memberService.loginMember(memberDto.getUserId(),memberDto.getUserPw());
        if(principal !=null){
