@@ -7,6 +7,7 @@ import com.kh.NOEL.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/join")
@@ -31,7 +33,7 @@ public class MemberController {
         boolean check = memberService.checkMemberId(userId);
         return new Response<>("true", "일반 회원 아이디 중복 확인",check);
     }
-
+    /*
     //로그인
     @PostMapping("/login")
     public Response<?> loginMember(@RequestBody MemberDto memberDto,HttpSession session){
@@ -41,4 +43,6 @@ public class MemberController {
        }
        return new Response<>("true","로그인성공",principal.getUserId());
     }
+    */
+
 }
