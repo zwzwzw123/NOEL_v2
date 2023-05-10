@@ -36,13 +36,9 @@ public class MemberController {
     }
 
     //로그인
-    @PostMapping("/login")
-    public Response<?> loginMember(@RequestBody MemberDto memberDto,HttpSession session){
-       MemberDto principal = memberService.loginMember(memberDto.getUserId(),memberDto.getUserPw());
-       if(principal !=null){
-            session.setAttribute("principal",principal);
-       }
-       return new Response<>("true","로그인성공",principal.getUserId());
+    @GetMapping("/login")
+    public Response<?> loginMember(){
+       return new Response<>("true","로그인 완료",null);
     }
 
 
