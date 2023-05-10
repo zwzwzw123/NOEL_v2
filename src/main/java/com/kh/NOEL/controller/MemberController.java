@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,7 +25,7 @@ public class MemberController {
     @PostMapping(value = "/join")
     public Response<?> joinMember(@RequestBody MemberDto memberDto){
         MemberDto saveMember = memberService.joinMember(memberDto);
-        return new Response<>("true", "회원가입 성공",saveMember);
+        return new Response<>("true", "회원가입 성공",saveMember.getUserId());
     }
 
     //아이디 유효성 검사
@@ -33,16 +34,16 @@ public class MemberController {
         boolean check = memberService.checkMemberId(userId);
         return new Response<>("true", "일반 회원 아이디 중복 확인",check);
     }
-//
-//    //로그인
-//    @PostMapping("/login")
-//    public Response<?> loginMember(@RequestBody MemberDto memberDto,HttpSession session){
-//       MemberDto principal = memberService.loginMember(memberDto.getUserId(),memberDto.getUserPw());
-//       if(principal !=null){
-//            session.setAttribute("principal",principal);
-//       }
-//       return new Response<>("true","로그인성공",principal.getUserId());
-//    }
+
+    //로그인
+    @PostMapping("/login")
+    public Response<?> loginMember(@RequestBody MemberDto memberDto,HttpSession session){
+       MemberDto principal = memberService.loginMember(memberDto.getUserId(),memberDto.getUserPw());
+       if(principal !=null){
+            session.setAttribute("principal",principal);
+       }
+       return new Response<>("true","로그인성공",principal.getUserId());
+    }
 
 
 }
