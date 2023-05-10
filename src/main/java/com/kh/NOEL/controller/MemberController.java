@@ -33,16 +33,16 @@ public class MemberController {
         boolean check = memberService.checkMemberId(userId);
         return new Response<>("true", "일반 회원 아이디 중복 확인",check);
     }
-    /*
-    //로그인
-    @PostMapping("/login")
-    public Response<?> loginMember(@RequestBody MemberDto memberDto,HttpSession session){
-       MemberDto principal = memberService.loginMember(memberDto.getUserId(),memberDto.getUserPw());
-       if(principal !=null){
-            session.setAttribute("principal",principal);
-       }
-       return new Response<>("true","로그인성공",principal.getUserId());
-    }
-    */
+//
+//    //로그인
+//    @PostMapping("/login")
+//    public Response<?> loginMember(@RequestBody MemberDto memberDto,HttpSession session){
+//       MemberDto principal = memberService.loginMember(memberDto.getUserId(),memberDto.getUserPw());
+//       if(principal !=null){
+//            session.setAttribute("principal",principal);
+//       }
+//       return new Response<>("true","로그인성공",principal.getUserId());
+//    }
+
 
 }
