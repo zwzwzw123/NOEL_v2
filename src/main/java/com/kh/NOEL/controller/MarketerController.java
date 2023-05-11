@@ -38,10 +38,8 @@ public class MarketerController {
         return new Response<>("true","판매자 이메일 중복 확인",check);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/login")
-    public Response<?> loginMarketer(@RequestBody MarketerDto marketerDto){
-        MarketerDto pricipal = marketerService.loginMarketer(marketerDto.getMarketerId(), marketerDto.getMarketerPw());
-        return new Response<>("true","판매자 로그인 성공",pricipal.getMarketerId());
+    @GetMapping("/login")
+    public Response<?> loginMarketer(){
+        return new Response<>("true","판매자 로그인 완료",null);
     }
 }

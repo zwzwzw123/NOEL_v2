@@ -38,7 +38,7 @@ public class MemberController {
     //로그인
     @GetMapping("/login")
     public Response<?> loginMember(){
-       return new Response<>("true","로그인 완료",null);
+       return new Response<>("true","일반 회원 로그인 완료",null);
     }
 
 

@@ -1,5 +1,6 @@
 package com.kh.NOEL.config.auth;
 
+import com.kh.NOEL.domain.Marketer;
 import com.kh.NOEL.domain.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,13 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PrincipalDetails implements UserDetails {
+public class MarketerDetails implements UserDetails {
 
-    private Member member;
+    private Marketer marketer;
 
-    public PrincipalDetails(Member member){
-        this.member = member;
+    public MarketerDetails(Marketer marketer){
+        this.marketer = marketer;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -21,7 +23,7 @@ public class PrincipalDetails implements UserDetails {
         collection.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return member.getUserLevel().toString();
+                return marketer.getMarketerAuth().toString();
             }
         });
         return null;
@@ -29,12 +31,12 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return member.getUserPw();
+        return marketer.getMarketerPw();
     }
 
     @Override
     public String getUsername() {
-        return member.getUserId();
+        return marketer.getMarketerId();
     }
 
     @Override

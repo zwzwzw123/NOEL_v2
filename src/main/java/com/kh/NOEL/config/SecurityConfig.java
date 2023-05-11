@@ -1,13 +1,14 @@
 package com.kh.NOEL.config;
 
-import com.kh.NOEL.config.auth.PrincipalDetailsService;
+import com.kh.NOEL.config.auth.MarketerDetails;
+import com.kh.NOEL.config.auth.MarketerDetailsService;
+import com.kh.NOEL.config.auth.MemberDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -20,11 +21,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
     @Autowired
-    private PrincipalDetailsService principalDetailsService;
+    private MemberDetailsService memberDetailsService;
+
+    @Autowired
+    private MarketerDetailsService marketerDetailsService;
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(principalDetailsService).passwordEncoder(encodePw());
+        auth.userDetailsService(memberDetailsService).passwordEncoder(encodePw());
+        auth.userDetailsService(marketerDetailsService).passwordEncoder(encodePw());
     }
 
     @Override
@@ -38,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/member/login")
                 .loginProcessingUrl("/member/loginForm")
+                .loginPage("/marketer/login")
+                .loginProcessingUrl("/marketer/loginForm")
                 .and()
                 .httpBasic();
     }
