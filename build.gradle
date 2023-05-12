@@ -48,6 +48,10 @@ dependencies {
 	//mustache 관련
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 
+	//JavaMailSender 관련
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+
 
 }
 

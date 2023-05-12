@@ -10,6 +10,7 @@ public class MemberMapper {
         memberDto.setUserPw(member.getUserPw());
         memberDto.setUserName(member.getUserName());
         memberDto.setUserTel(member.getUserTel());
+        memberDto.setUserEmail(member.getUserEmail());
         memberDto.setCreatedAt(member.getCreatedAt());
         return memberDto;
     }
@@ -20,6 +21,7 @@ public class MemberMapper {
         member.setUserPw(memberDto.getUserPw());
         member.setUserName(memberDto.getUserName());
         member.setUserTel(memberDto.getUserTel());
+        member.setUserEmail(memberDto.getUserEmail());
         member.setCreatedAt(memberDto.getCreatedAt());
         return member;
     }

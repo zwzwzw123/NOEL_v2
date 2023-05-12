@@ -32,6 +32,9 @@ public class Member {
     @Column(name = "user_tel", nullable = false)
     private String userTel;
 
+    @Column(name = "user_email",nullable = false)
+    private String userEmail;
+
     @Column(name = "created_at", unique = false, nullable = true)
     @CreationTimestamp
     private Date createdAt;
