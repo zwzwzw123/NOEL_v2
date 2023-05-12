@@ -7,6 +7,7 @@ import com.kh.NOEL.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,15 @@ public class MemberController {
     public Response<?> loginMember(){
        return new Response<>("true","일반 회원 로그인 완료",null);
     }
+
+    //아이디 찾기
+    @GetMapping("/findID")
+    public Response<?> findID(@RequestParam(required = true, value = "userName")String userName,
+                              @RequestParam(required = true, value = "userTel")String userTel){
+        String id = memberService.findID(userName, userTel);
+        return new Response<>("true","일반 회원 아이디 찾기 완료",id);
+    }
+
 
 
 }

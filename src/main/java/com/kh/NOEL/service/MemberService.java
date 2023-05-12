@@ -29,7 +29,7 @@ public class MemberService {
         String rawPW = memberDto.getUserPw();
         String encPw = encoder.encode(rawPW);
         member.setUserPw(encPw);
-        member.setUserLevel(MemberLevel.USER);
+        member.setUserLevel(MemberLevel.ROLE_USER);
         this.memberRepository.save(member);
         return MemberMapper.convertToDto(member);
     }
@@ -38,4 +38,10 @@ public class MemberService {
         return memberRepository.existsByUserId(userId);
     }
 
+
+    public String findID(String userName, String userTel) {
+        Member member = memberRepository.findByUserNameAndUserTel(userName,userTel);
+        String id = member.getUserId();
+        return id;
+    }
 }

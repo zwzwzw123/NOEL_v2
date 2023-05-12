@@ -30,4 +30,11 @@ public class ExceptionAdvice {
     public Response<?>UsernameNotFoundException(UsernameNotFoundException e){
         return new Response<>("fail",e.getMessage(),null);
     }
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Response<?> NullPointerException(NullPointerException e){
+        return new Response<>("fail",e.getMessage(),"NullPointerException");
+    }
+
 }
