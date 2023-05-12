@@ -3,6 +3,7 @@ package com.kh.NOEL.controller;
 import com.kh.NOEL.Response;
 import com.kh.NOEL.dto.MailDto;
 import com.kh.NOEL.dto.MemberDto;
+import com.kh.NOEL.service.EmailService;
 import com.kh.NOEL.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,9 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    private JavaMailSender javaMailSender;
+    @Autowired
+    private EmailService emailService;
 
-    @Value("${spring.mail.username}")
-    private String from;
 
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
@@ -61,11 +61,13 @@ public class MemberController {
     public Response<?> findPw(@RequestBody MemberDto memberDto){
         String userId=memberDto.getUserId();
         String userEmail = memberDto.getUserEmail();
-        MemberDto memberDto1 = memberService.findUserIdAndUserEmail(userId, userEmail);
-        MailDto mail = memberService.findPw(memberDto1.getUserEmail(), memberDto1.getUserId());
-        memberService.mailSend(mail);
+        MemberDto memberDto1 = emailService.findUserIdAndUserEmail(userId, userEmail);
+        MailDto mail = emailService.findPw(memberDto1.getUserEmail(), memberDto1.getUserId());
+        emailService.mailSend(mail);
         return new Response<>("true","일반 회원 임시 비밀번호 이메일 발송 완료 ",userEmail);
     }
+
+
 
 
 

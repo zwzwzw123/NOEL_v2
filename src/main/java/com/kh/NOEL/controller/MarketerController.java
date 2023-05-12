@@ -42,4 +42,6 @@ public class MarketerController {
     public Response<?> loginMarketer(){
         return new Response<>("true","판매자 로그인 완료",null);
     }
+
+
 }
