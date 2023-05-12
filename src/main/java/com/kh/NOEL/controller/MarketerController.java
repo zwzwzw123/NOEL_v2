@@ -38,10 +38,16 @@ public class MarketerController {
         return new Response<>("true","판매자 이메일 중복 확인",check);
     }
 
+    //로그인
     @GetMapping("/login")
     public Response<?> loginMarketer(){
-        return new Response<>("true","판매자 로그인 완료",null);
+        return new Response<>("true", "판매자 로그인 완료", null);
     }
 
-
+    @GetMapping("/findID")
+    public Response<?> findID(@RequestParam(required = true, value = "marketerName")String marketerName,
+                              @RequestParam(required = true, value = "marketerTel")String marketerTel){
+        String id = marketerService.findID(marketerName, marketerTel);
+        return new Response<>("true","판매자 아이디 찾기 완료",id);
+    }
 }

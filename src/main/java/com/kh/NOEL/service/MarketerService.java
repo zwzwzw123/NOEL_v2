@@ -39,13 +39,9 @@ public class MarketerService {
         return marketerRespository.existsByMarketerEmail(marketerEmail);
     }
 
-    public MarketerDto loginMarketer(String marketerId, String marketerPw) {
-        Optional<Marketer> res = marketerRespository.findByMarketerIdAndMarketerPw(marketerId, marketerPw);
-        if(res.isPresent()){
-            MarketerDto marketerDto = MarketerMapper.converToDto(res.get());
-            return marketerDto;
-        }else {
-            throw new EntityNotFoundException(String.format("아이디 및 비밀번호가 일치하지 않습니다."));
-        }
+    public String findID(String marketerName, String marketerTel) {
+        Marketer marketer = marketerRespository.findByMarketerIdAndMarketerTel(marketerName,marketerTel);
+        String id =marketer.getMarketerId();
+        return id;
     }
 }
