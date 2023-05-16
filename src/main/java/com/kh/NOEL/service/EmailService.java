@@ -1,9 +1,13 @@
 package com.kh.NOEL.service;
 
+import com.kh.NOEL.domain.Marketer;
 import com.kh.NOEL.domain.Member;
 import com.kh.NOEL.dto.MailDto;
+import com.kh.NOEL.dto.MarketerDto;
 import com.kh.NOEL.dto.MemberDto;
+import com.kh.NOEL.mapper.MarketerMapper;
 import com.kh.NOEL.mapper.MemberMapper;
+import com.kh.NOEL.repository.MarketerRespository;
 import com.kh.NOEL.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,11 +27,18 @@ public class EmailService {
 
     private final MemberRepository memberRepository;
 
+    private final MarketerRespository marketerRespository;
+
     private final BCryptPasswordEncoder encoder;
 
     public MemberDto findUserIdAndUserEmail(String userId, String userEmail) {
         Member member = memberRepository.findByUserIdAndUserEmail(userId,userEmail);
         return MemberMapper.convertToDto(member);
+    }
+
+    public MarketerDto findByMarketerIdAndMarketerEmail(String id, String email) {
+        Marketer marketer = marketerRespository.findByMarketerIdAndMarketerEmail(id, email);
+        return MarketerMapper.converToDto(marketer);
     }
 
     public MailDto findPw(String userEmail, String userId) {
@@ -65,5 +76,6 @@ public class EmailService {
         message.setFrom("zwzwzw12333@gmail.com");
         mailSender.send(message);
     }
+
 
 }
